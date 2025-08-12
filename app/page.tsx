@@ -1,6 +1,9 @@
 "use client";
 
+import { UserButton, useUser } from "@clerk/nextjs";
 import { motion } from "motion/react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function HeroSectionOne() {
   return (
@@ -65,12 +68,11 @@ export default function HeroSectionOne() {
           }}
           className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4"
         >
-          <button className="w-60 transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
-            Start Assistance
-          </button>
-          <button className="w-60 transform rounded-lg border border-gray-300 bg-white px-6 py-2 font-medium text-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-gray-700 dark:bg-black dark:text-white dark:hover:bg-gray-900">
-            Contact Support
-          </button>
+          <Link href={"/sign-in"}>
+            <button className="w-60 transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
+              Start Assistance
+            </button>
+          </Link>
         </motion.div>
         <motion.div
           initial={{
@@ -103,6 +105,7 @@ export default function HeroSectionOne() {
 }
 
 const Navbar = () => {
+  const { user } = useUser();
   return (
     <nav className="flex w-full items-center justify-between border-t border-b border-neutral-200 px-4 py-4 dark:border-neutral-800 bg-white dark:bg-gray-900">
       <div className="flex items-center gap-3">
@@ -113,9 +116,18 @@ const Navbar = () => {
           MediVoice Assist
         </h1>
       </div>
-      <button className="w-28 rounded-lg bg-teal-600 px-6 py-2 font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-teal-700 dark:bg-teal-400 dark:text-gray-900 dark:hover:bg-teal-300">
-        Get Help
-      </button>
+      {!user ? (
+        <Link href={"/sign-in"}>
+          <button className="w-28 rounded-lg bg-teal-600 px-6 py-2 font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-teal-700 dark:bg-teal-400 dark:text-gray-900 dark:hover:bg-teal-300">
+            Login
+          </button>
+        </Link>
+      ) : (
+        <div className="flex gap-5 items-center ">
+          <UserButton />
+          <Button>Dashboard</Button>
+        </div>
+      )}
     </nav>
   );
 };
