@@ -118,7 +118,7 @@ const Navbar = () => {
       </div>
       {!user ? (
         <Link href={"/sign-in"}>
-          <button className="w-28 rounded-lg bg-teal-600 px-6 py-2 font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-teal-700 dark:bg-teal-400 dark:text-gray-900 dark:hover:bg-teal-300">
+          <button className="w-28 transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
             Login
           </button>
         </Link>
